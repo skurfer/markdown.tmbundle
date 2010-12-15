@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>nop</string>
+	<key>command</key>
+	<string>#!/usr/bin/env python
+
+import os
+import sys
+import re
+
+hashes = ''
+line = os.environ['TM_CURRENT_LINE']
+m = re.match(r'(#{1,6})\s+(.+?)\s*(#*)$', line)
+
+if m:
+    hashes = m.group(1)
+    if m.group(3) == '':
+        heading = m.group(2).strip()
+        sys.stdout.write('%s %s %s' % (hashes, heading, hashes))
+else:
+    sys.stdout.write(line)
+</string>
+	<key>fallbackInput</key>
+	<string>line</string>
+	<key>input</key>
+	<string>selection</string>
+	<key>keyEquivalent</key>
+	<string>~@.</string>
+	<key>name</key>
+	<string>“Close” Heading</string>
+	<key>output</key>
+	<string>replaceSelectedText</string>
+	<key>scope</key>
+	<string>markup.heading.markdown</string>
+	<key>uuid</key>
+	<string>49E811E3-819B-4E23-8413-748E92921CBA</string>
+</dict>
+</plist>
